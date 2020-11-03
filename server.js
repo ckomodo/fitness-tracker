@@ -11,21 +11,24 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", 
+{
   useNewUrlParser: true,
-  useFindAndModify: false
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
 });
 
 // html routes
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
-app.get("/stats", function(req, res) {
+app.get("/stats", function (req, res) {
   res.sendFile(path.join(__dirname, "./public/stats.html"));
 });
 
-app.get("/exercise", function(req, res) {
+app.get("/exercise", function (req, res) {
   res.sendFile(path.join(__dirname, "./public/exercise.html"));
 });
 
